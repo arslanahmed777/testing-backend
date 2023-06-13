@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Home route
 app.get("/", (req, res) => {
-  res.send("Welcome to a basic express App");
+  res.send("Welcome to a basic express App again");
 });
 
 // Mock API
@@ -27,6 +27,6 @@ app.post("/user", (req, res) => {
 
 // Listen on port 5000
 app.listen(port, () => {
-  console.log(`Server is boomings on port 5000 again
+  console.log(`Server is boomings on port 5000 
 Visit http://localhost:5000`);
 });
