@@ -14,10 +14,8 @@
   "author": "William Imoh",
   "license": "MIT",
   "dependencies": {
-    "chrome-aws-lambda": "^10.1.0",
     "express": "^4.17.1",
     "nodemon": "^1.19.1",
-    "puppeteer-core": "^20.7.1",
     "whatsapp-web.js": "^1.21.0"
   }
 }
