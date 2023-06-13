@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 const { Client } = require('whatsapp-web.js');
 const port = 5000;
-
-// Body parser
+const chromium = require('chrome-aws-lambda');
 app.use(express.urlencoded({ extended: false }));
 
 // Home route
@@ -12,6 +11,13 @@ app.get("/", (req, res) => {
 });
 
 // Mock API
+const browser = await chromium.puppeteer.launch({
+  args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+  defaultViewport: chromium.defaultViewport,
+  executablePath: await chromium.executablePath,
+  headless: true,
+  ignoreHTTPSErrors: true,
+})
 app.get("/users", (req, res) => {
   const client = new Client({
     puppeteer: {
