@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
-const { Client } = require('whatsapp-web.js');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 const port = 5000;
-const chromium = require('chrome-aws-lambda');
 app.use(express.urlencoded({ extended: false }));
 
 // Home route
@@ -10,16 +9,10 @@ app.get("/", (req, res) => {
   res.send("Welcome to a basic express App again");
 });
 
-// Mock API
-const browser = await chromium.puppeteer.launch({
-  args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-  defaultViewport: chromium.defaultViewport,
-  executablePath: await chromium.executablePath,
-  headless: true,
-  ignoreHTTPSErrors: true,
-})
+// M 
 app.get("/users", (req, res) => {
   const client = new Client({
+    authStrategy: new LocalAuth(),
     puppeteer: {
       args: ['--no-sandbox'],
     }
