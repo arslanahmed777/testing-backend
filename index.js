@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const { Client } = require('whatsapp-web.js');
 const port = 5000;
 
 // Body parser
@@ -13,10 +13,25 @@ app.get("/", (req, res) => {
 
 // Mock API
 app.get("/users", (req, res) => {
-  res.json([
-    { name: "William", location: "Abu Dhabi" },
-    { name: "Chris", location: "Vegas" }
-  ]);
+  const client = new Client({
+    puppeteer: {
+      args: ['--no-sandbox'],
+    }
+  });
+  client.on('qr', (qr) => {
+    console.log('QR RECEIVED', qr);
+    res.json([
+      { name: "William", location: qr },
+      { name: "Chris", location: "Vegas" }
+    ]);
+  });
+
+  client.on('ready', () => {
+    console.log('Client is ready!');
+  });
+
+  client.initialize();
+
 });
 
 app.post("/user", (req, res) => {
